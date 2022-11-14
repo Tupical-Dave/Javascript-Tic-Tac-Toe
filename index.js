@@ -1,14 +1,19 @@
-let player = "circle";
+let player = "cross";
 
 function putTheSymbol(event) {
-  if (player == "cross") {
-    player = "circle";
-  } else {
-    player = "cross";
-  }
   const element = event.target;
-  const symbol = document.createElement("div");
-  symbol.classList.add(player);
-  element.appendChild(symbol);
-  console.log(player);
+  if (
+    element.classList.contains("cross") ||
+    element.classList.contains("circle")
+  ) {
+  } else {
+    const symbol = document.createElement("div");
+    symbol.classList.add(player);
+    element.appendChild(symbol);
+    if (player == "cross") {
+      player = "circle";
+    } else {
+      player = "cross";
+    }
+  }
 }

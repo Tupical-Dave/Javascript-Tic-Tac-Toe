@@ -17,16 +17,32 @@ const board = document.getElementById("board");
 const endScreen = document.getElementById("end-screen");
 const endText = document.getElementById("end-text");
 const restartbutton = document.getElementById("restart-button");
-
+restartbutton.addEventListener("click", start);
 start();
 
-restartbutton.addEventListener("click", start);
+function start() {
+  boardCells.forEach((element) => {
+    element.classList.remove("cross");
+    element.classList.remove("circle");
+  });
+
+  endScreen.classList.remove("show");
+
+  if (board.classList.contains("circle")) {
+    board.classList.replace("circle", "cross");
+  }
+
+  boardCells.forEach((element) => {
+    element.addEventListener("click", clickHandling, { once: true });
+  });
+}
 
 function clickHandling(event) {
   // putting the symbol
   const target = event.target;
   let currentClass = playerTurn ? "cross" : "circle";
   putTheSymbol(target, currentClass);
+
   // check winner
 
   if (checkWinner(currentClass)) {
@@ -37,6 +53,14 @@ function clickHandling(event) {
       endText.innerHTML = `The Winner is O player!`;
     }
   }
+
+  // check for the draw
+
+  if (checkDraw()) {
+    endText.innerHTML = `It is a Draw!`;
+    endScreen.classList.add("show");
+  }
+
   // changing turn
   nextTurn();
 
@@ -68,21 +92,11 @@ function checkWinner(currentClass) {
   });
 }
 
-function start() {
-  boardCells.forEach((element) => {
-    element.classList.remove("cross");
-    element.classList.remove("circle");
+function checkDraw() {
+  return [...boardCells].every((element) => {
+    return (
+      element.classList.contains("cross") ||
+      element.classList.contains("circle")
+    );
   });
-
-  endScreen.classList.remove("show");
-
-  if (board.classList.contains("circle")) {
-    board.classList.replace("circle", "cross");
-  }
-
-  boardCells.forEach((element) => {
-    element.addEventListener("click", clickHandling, { once: true });
-  });
-
-  playerTurn = true;
 }

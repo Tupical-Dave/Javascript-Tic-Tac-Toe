@@ -35,13 +35,14 @@ function start() {
   boardCells.forEach((element) => {
     element.addEventListener("click", clickHandling, { once: true });
   });
+
+  playerTurn = true;
 }
 
 function clickHandling(event) {
   // putting the symbol
-  const target = event.target;
   let currentClass = playerTurn ? "cross" : "circle";
-  putTheSymbol(target, currentClass);
+  putTheSymbol(event.target, currentClass);
 
   // check winner
 

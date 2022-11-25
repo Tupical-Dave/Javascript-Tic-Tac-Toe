@@ -2,10 +2,11 @@ let playerTurn = true;
 const CIRCLE_CLASS = "circle";
 const CROSS_CLASS = "cross";
 const WINING_COMBINATIONS = [
+  [0, 4, 8],
   [0, 1, 2],
   [3, 4, 5],
   [6, 7, 8],
-  [0, 4, 8],
+
   [2, 4, 6],
   [1, 4, 7],
   [0, 3, 6],
@@ -37,6 +38,8 @@ function start() {
   });
 
   playerTurn = true;
+
+  endText.innerHTML = "";
 }
 
 function clickHandling(event) {
@@ -45,6 +48,11 @@ function clickHandling(event) {
   putTheSymbol(event.target, currentClass);
 
   // check winner
+
+  if (checkDraw()) {
+    endText.innerHTML = `It is a Draw!`;
+    endScreen.classList.add("show");
+  }
 
   if (checkWinner(currentClass)) {
     endScreen.classList.add("show");
@@ -56,11 +64,6 @@ function clickHandling(event) {
   }
 
   // check for the draw
-
-  if (checkDraw()) {
-    endText.innerHTML = `It is a Draw!`;
-    endScreen.classList.add("show");
-  }
 
   // changing turn
   nextTurn();

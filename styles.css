@@ -12,6 +12,23 @@ body {
   margin: 0;
 }
 
+.player-score {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.player-1 {
+  color: red;
+  font-size: 30px;
+}
+
+.player-2 {
+  color: blue;
+  font-size: 30px;
+}
+
 .board {
   height: 100vh;
   width: 100vw;

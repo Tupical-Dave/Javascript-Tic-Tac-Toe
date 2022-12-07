@@ -1,106 +1,32 @@
-let playerTurn = true;
-const CIRCLE_CLASS = "circle";
-const CROSS_CLASS = "cross";
-const WINING_COMBINATIONS = [
-  [0, 4, 8],
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
+const startButton = document.getElementById("start-button");
+const player1Name = document.getElementById("player-1-name");
+const player2Name = document.getElementById("player-2-name");
+const submitButton = document.getElementById("submit-names");
+let player1 = "player 1:";
+let player2 = "player 2:";
 
-  [2, 4, 6],
-  [1, 4, 7],
-  [0, 3, 6],
-  [2, 5, 8],
-];
+if(startButton) {
 
-const boardCells = document.querySelectorAll("[data-cell]");
-const board = document.getElementById("board");
-const endScreen = document.getElementById("end-screen");
-const endText = document.getElementById("end-text");
-const restartbutton = document.getElementById("restart-button");
-restartbutton.addEventListener("click", start);
-start();
 
-function start() {
-  boardCells.forEach((element) => {
-    element.classList.remove("cross");
-    element.classList.remove("circle");
-  });
-
-  endScreen.classList.remove("show");
-
-  if (board.classList.contains("circle")) {
-    board.classList.replace("circle", "cross");
-  }
-
-  boardCells.forEach((element) => {
-    element.addEventListener("click", clickHandling, { once: true });
-  });
-
-  playerTurn = true;
-
-  endText.innerHTML = "";
+startButton.addEventListener('click', function redirect() {
+    window.location.href = "index.html";
+});
 }
 
-function clickHandling(event) {
-  // putting the symbol
-  let currentClass = playerTurn ? "cross" : "circle";
-  putTheSymbol(event.target, currentClass);
+if(submitButton) {
 
-  // check winner
 
-  if (checkDraw()) {
-    endText.innerHTML = `It is a Draw!`;
-    endScreen.classList.add("show");
-  }
-
-  if (checkWinner(currentClass)) {
-    endScreen.classList.add("show");
-    if (playerTurn) {
-      endText.innerHTML = `The Winner is X player!`;
-    } else {
-      endText.innerHTML = `The Winner is O player!`;
+submitButton.addEventListener('click', function submitNames() {
+    if(player1Name.value) {
+        player1 = player1Name.value;
+        localStorage.setItem("player1-name", player1)
     }
-  }
 
-  // check for the draw
+    if(player2Name.value) {
+        player2 = player2Name.value;
+        localStorage.setItem("player2-name", player2)
+    }
 
-  // changing turn
-  nextTurn();
-
-  // seting the hover class for the whole board
-  setBoardHoverClass();
-}
-
-function putTheSymbol(target, symbol) {
-  target.classList.add(symbol);
-}
-
-function nextTurn() {
-  playerTurn = !playerTurn;
-}
-
-function setBoardHoverClass() {
-  if (board.classList.contains("cross")) {
-    board.classList.replace("cross", "circle");
-  } else if (board.classList.contains("circle")) {
-    board.classList.replace("circle", "cross");
-  }
-}
-
-function checkWinner(currentClass) {
-  return WINING_COMBINATIONS.some((combination) => {
-    return combination.every((index) => {
-      return boardCells[index].classList.contains(currentClass);
-    });
-  });
-}
-
-function checkDraw() {
-  return [...boardCells].every((element) => {
-    return (
-      element.classList.contains("cross") ||
-      element.classList.contains("circle")
-    );
-  });
+    window.location.href = "board.html";
+});
 }

@@ -10,13 +10,22 @@
 
 body {
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+#player-turn-name {
+  font-size: 30px;
 }
 
 .player-score {
-  display: flex;
-  justify-content: space-between;
-  padding-left: 20px;
-  padding-right: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 300px);
+  margin-top: 40px;
 }
 
 .player-1 {
@@ -27,10 +36,11 @@ body {
 .player-2 {
   color: blue;
   font-size: 30px;
+  text-align: right;
 }
 
 .board {
-  height: 100vh;
+  
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -38,6 +48,7 @@ body {
   background-color: #f2f2f24b;
   display: grid;
   grid-template-columns: repeat(3, auto);
+  margin-top: 40px;
 }
 
 .cell {

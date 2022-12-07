@@ -91,18 +91,26 @@ function clickHandling(event) {
     
     endScreen.classList.add("show");
     if (playerTurn) {
-      endText.innerHTML = `The Winner is X player!`;
+      
       if (turnCount % 2 === 0) {
         player1ScoreValue += 1;
+        endText.innerHTML = `The Winner is ${localStorage.getItem(
+          "player1-name")}!`;
       } else {
         player2ScoreValue += 1;
+        endText.innerHTML = `The Winner is ${localStorage.getItem(
+          "player2-name")}!`
       }
     } else {
-      endText.innerHTML = `The Winner is O player!`;
+      
       if (turnCount % 2 !== 0) {
         player2ScoreValue += 1;
+        endText.innerHTML = `The Winner is ${localStorage.getItem(
+          "player2-name")}!`
       } else {
         player1ScoreValue += 1;
+        endText.innerHTML = `The Winner is ${localStorage.getItem(
+          "player1-name")}!`;
       }
     }
     turnCount += 1;

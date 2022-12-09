@@ -1,7 +1,8 @@
 let playerTurn = true;
 let player1ScoreValue = 0;
 let player2ScoreValue = 0;
-let turnCount = 0;
+let turnCount = true;
+let gameCounter = 0;
 const CIRCLE_CLASS = "circle";
 const CROSS_CLASS = "cross";
 const WINING_COMBINATIONS = [
@@ -41,7 +42,8 @@ restartbutton.addEventListener("click", start);
 start();
 
 function start() {
-  if(turnCount %2===0) {
+  console.log(board.classList)
+  if(gameCounter%2===0) {
     playerTurnName.innerHTML = `${localStorage.getItem(
       "player1-name")}'s Turn!`
   }else {
@@ -60,12 +62,13 @@ function start() {
     element.classList.remove("circle");
   });
 
+  
+  console.log(turnCount)
   endScreen.classList.remove("show");
 
   if (board.classList.contains("circle")) {
     board.classList.replace("circle", "cross");
   }
-
   boardCells.forEach((element) => {
     element.addEventListener("click", clickHandling, { once: true });
   });
@@ -92,7 +95,7 @@ function clickHandling(event) {
     endScreen.classList.add("show");
     if (playerTurn) {
       
-      if (turnCount % 2 === 0) {
+      if (turnCount) {
         player1ScoreValue += 1;
         endText.innerHTML = `The Winner is ${localStorage.getItem(
           "player1-name")}!`;
@@ -101,26 +104,31 @@ function clickHandling(event) {
         endText.innerHTML = `The Winner is ${localStorage.getItem(
           "player2-name")}!`
       }
+      turnCount = !turnCount;
+      gameCounter++
+      return
     } else {
       
-      if (turnCount % 2 !== 0) {
-        player2ScoreValue += 1;
-        endText.innerHTML = `The Winner is ${localStorage.getItem(
-          "player2-name")}!`
-      } else {
+      if (turnCount) {
         player1ScoreValue += 1;
         endText.innerHTML = `The Winner is ${localStorage.getItem(
           "player1-name")}!`;
+      } else {
+        player2ScoreValue += 1;
+        endText.innerHTML = `The Winner is ${localStorage.getItem(
+          "player2-name")}!`
+          
       }
+      gameCounter++
     }
-    turnCount += 1;
+    
+    return
   }
 
-  // check for the draw
-
+  
   // changing turn
   nextTurn();
-
+  console.log(turnCount)
   // seting the hover class for the whole board
   setBoardHoverClass();
 }
@@ -131,18 +139,26 @@ function putTheSymbol(target, symbol) {
 
 function nextTurn() {
   playerTurn = !playerTurn;
+  turnCount = !turnCount;
 }
 
 function setBoardHoverClass() {
-  if (board.classList.contains("cross")) {
-    playerTurnName.innerHTML = `${localStorage.getItem(
-      "player2-name")}'s Turn!`
-    board.classList.replace("cross", "circle");
-  } else if (board.classList.contains("circle")) {
+  if (turnCount) {
     playerTurnName.innerHTML = `${localStorage.getItem(
       "player1-name")}'s Turn!`
+  } else {
+    playerTurnName.innerHTML = `${localStorage.getItem(
+      "player2-name")}'s Turn!`
+  }
+  
+  if (board.classList.contains("cross")) {
+    
+    board.classList.replace("cross", "circle");
+  } else if (board.classList.contains("circle")) {
+    
     board.classList.replace("circle", "cross");
   }
+ 
 }
 
 function checkWinner(currentClass) {

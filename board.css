@@ -172,3 +172,39 @@ body {
 .end-screen.show {
   display: flex;
 }
+
+@media screen and (max-width: 910px) {
+  
+  .player-score {
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    margin-top: 40px;
+  }
+  
+  
+}
+
+@media screen and (max-width: 460px) {
+  
+  .player-score {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    margin-top: 40px;
+  }
+  
+  #player-turn-name {
+    font-size: 15px;
+  }
+
+  .player-1 {
+    color: red;
+    font-size: 15px;
+  }
+  
+  .player-2 {
+    color: blue;
+    font-size: 15px;
+    text-align: right;
+  }
+
+}

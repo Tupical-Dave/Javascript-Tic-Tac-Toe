@@ -88,6 +88,7 @@ function clickHandling(event) {
   if (checkDraw()) {
     endText.innerHTML = `It is a Draw!`;
     endScreen.classList.add("show");
+    gameCounter++
   }
 
   if (checkWinner(currentClass)) {
